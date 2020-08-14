@@ -79,7 +79,9 @@ function adjustLighting() {
     var directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 10);
     scene.add(directionalLight);
     scene.add(directionalLightHelper);
-    directionalLight.position.set(0, 800, 0);
+    directionalLight.position.set(300, 800, 0);
+
+    directionalLightHelper.update();
 }
 
 function addBasicCube() {
