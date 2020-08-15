@@ -4,8 +4,8 @@ struct DirectionalLight {
     vec3 color;
 };
 uniform DirectionalLight directionalLights[NUM_DIR_LIGHTS];
+// uniform sampler2DShadow directionalShadowMap[NUM_DIR_LIGHTS];
 #endif
-uniform sampler2DShadow directionalShadowMap[NUM_DIR_LIGHTS];
 
 uniform sampler2D map;
 uniform vec3 ambientLightColor;
@@ -28,6 +28,10 @@ void main() {
 
     // 环境光
     vec3 ambient = ambientLightColor * diffuse.rgb * 1.0;
+
+    // shadow
+    // for (int i = 0; i < )
+    // vec2 shadowMapSize = textureSize(directionalShadowMap[0], 0);
 
     // 计算最终输出
     vec3 diffuseColor = diffuse.rgb * lightColor * diffuseIntensity;
