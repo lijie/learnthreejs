@@ -1,7 +1,10 @@
 // import * as THREE from 'three';
-import * as THREE from 'https://unpkg.com/three@0.119.1/build/three.module.js';
-import { GLTFLoader } from 'https://unpkg.com/three@0.119.1/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.119.1/examples/jsm/controls/OrbitControls.js';
+// import * as THREE from 'https://unpkg.com/three@0.119.1/build/three.module.js';
+// import { GLTFLoader } from 'https://unpkg.com/three@0.119.1/examples/jsm/loaders/GLTFLoader.js';
+// import { OrbitControls } from 'https://unpkg.com/three@0.119.1/examples/jsm/controls/OrbitControls.js';
+import * as THREE from '../node_modules/three/build/three.module.js';
+import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
 
 var frameCount = 0;
 
@@ -15,7 +18,7 @@ var fragmentShader = null;
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFShadowMap; // THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.PCFShadowMap; // PCFShadowMap
 
 document.body.appendChild(renderer.domElement);
 
@@ -82,7 +85,7 @@ function adjustLighting() {
     var directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 10);
     scene.add(directionalLight);
     scene.add(directionalLightHelper);
-    directionalLight.position.set(300, 800, 0);
+    directionalLight.position.set(800, 800, 0);
 
     directionalLight.castShadow = true;
     directionalLight.shadow.mapSize.width = 512;
@@ -119,7 +122,13 @@ function loadModel() {
                 var old_mat = child.material;
                 if (false) {
                     var new_mat = new THREE.MeshLambertMaterial({ map: old_mat.map });
+                    var uniforms = THREE.UniformsUtils.merge([
+                        THREE.UniformsLib["lights"]
+                    ]);
+                    uniforms.receiveShadow = true;
+                    new_mat.uniforms = uniforms;
                     child.material = new_mat;
+                    console.log(new_mat.uniforms);
                 } else {
                     var new_mat = CustomMaterial();
                     new_mat.uniforms.map = {
