@@ -110,11 +110,7 @@ function loadModel() {
                     var new_mat = new THREE.MeshLambertMaterial({ map: old_mat.map });
                     child.material = new_mat;
                 } else {
-                    var new_mat = CustomMaterial();
-                    new_mat.uniforms.map = {
-                        type: 'sampler2D',
-                        value: old_mat.map
-                    }
+                    var new_mat = CustomMaterial(old_mat);
                     child.material = new_mat;
                 }
             }
@@ -176,11 +172,28 @@ function loadFragmentShader(path) {
     );
 }
 
-function CustomMaterial() {
+function PrepareFragmentShader(uniforms, shaderSource) {
+    var newShaderSource = shaderSource;
+    if (uniforms.map != null) {
+        newShaderSource = '#define USE_MAP\n' + shaderSource;
+    }
+    return newShaderSource;
+}
+
+function CustomMaterial(oldMaterial) {
     var uniforms = THREE.UniformsUtils.merge([
         THREE.UniformsLib["lights"]
     ]);
-    console.log(uniforms);
+    if (oldMaterial.map != null) {
+        uniforms.map = {
+            type: 'sampler2D',
+            value: oldMaterial.map
+        }
+    }
+    // console.log(uniforms);
+    // console.log(uniforms.map);
+    // console.log(uniforms.lightProbe);
+    fragmentShader = PrepareFragmentShader(uniforms, fragmentShader)
     let material = new THREE.ShaderMaterial({
         uniforms: uniforms,
         fragmentShader: fragmentShader,

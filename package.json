@@ -1,0 +1,11 @@
+{
+    "name": "learnthreejs",
+    "version": "1.0.0",
+    "description": "Just for fun",
+    "main": "index.js",
+    "author": "",
+    "license": "BSD",
+    "scripts": {
+        "start": "node app.js"
+    }
+}

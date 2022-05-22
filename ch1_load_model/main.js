@@ -1,7 +1,7 @@
 // import * as THREE from 'three';
-import * as THREE from 'https://unpkg.com/three@0.119.1/build/three.module.js';
-import { GLTFLoader } from 'https://unpkg.com/three@0.119.1/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.119.1/examples/jsm/controls/OrbitControls.js';
+import * as THREE from '/node_modules/three/build/three.module.js';
+import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js';
 
 
 // Our Javascript will go here.
